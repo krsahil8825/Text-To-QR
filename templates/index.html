@@ -1,38 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "./layout.html" %}
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Text To QR Code Generator | Mini Project Kumar Sahil</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </head>
+{% block title %}Text To QR | Home{% endblock %}
 
-    <body>
-        <div class="container">
-            <div class="all-content">
+{% block content %}
+<div class="w-100 d-flex flex-column align-items-center">
+    <div class="card shadow-lg p-4 rounded w-100" style="background-color: #1b1f23ff; color: #f8f9fa">
+        <h3 class="card-title text-center mb-3">Text to QR Code</h3>
+        <p class="text-center text-muted mb-4">
+            Enter any text or URL below and download its QR code instantly.
+        </p>
 
-                {% if image_avilable %}
-                    <h2>Converted QR-Code</h2>
-                    <a class="go-back" href="/">Go Back</a>
-                {% else %}
-                    <h2>Write Any thing that will converted to QR Code </h2>
-                    <p>scan the QR-Code to read the text</p>
-                {% endif %}
-
-                {% if image_avilable %}
-                    <div class="image">
-                        <img src="{{ url_for('static', filename='.svg') }}" alt="Generated QrCode">
-                    </div>
-                {% else %}
-                    <form method="post">
-                        <label for="input-text">Enter Your Text</label>
-                        <textarea name="input_text" id="input-text"></textarea>
-                        <button type="submit">Convert Text</button>
-                    </form>
-                {% endif %}
+        <form class="w-100" method="POST" action="/">
+            <div class="mb-3">
+                <label for="data" class="form-label">Text or URL</label>
+                <textarea
+                    class="form-control"
+                    id="data"
+                    name="data"
+                    rows="4"
+                    placeholder="e.g., https://example.com or any text"
+                    maxlength="1000"
+                    required
+                ></textarea>
+                <div class="form-text text-muted">Max 1000 characters. Your input is processed in-memory and not stored.</div>
             </div>
-        </div>
-    </body>
 
-</html>
+            <button type="submit" class="btn btn-primary btn-lg w-100">
+                Generate QR Code
+            </button>
+        </form>
+
+        <div class="mt-3 small text-secondary">
+            Submitting will download a PNG file named <code>qrcode.png</code>.
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}{% endblock %}
