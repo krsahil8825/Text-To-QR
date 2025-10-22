@@ -1,25 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "./layout.html" %}
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Text To QR Code Generator</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </head>
+{% block title %}Text To QR | Home{% endblock %}
 
-    <body>
-        <div class="container">
-            <div class="all-content">
-                <h2>Convert text or URL to QR Code</h2>
-                <p>Enter your text below and download the generated QR code as a PNG.</p>
-                <form method="post">
-                    <label for="input-text">Enter Your Text</label>
-                    <textarea name="data" id="input-text" placeholder="https://example.com or any text..."></textarea>
-                    <button type="submit">Generate QR</button>
-                </form>
+{% block content %}
+<div class="w-100 d-flex flex-column align-items-center">
+    <div class="card shadow-lg p-4 rounded w-100" style="background-color: #1b1f23ff; color: #f8f9fa">
+        <h3 class="card-title text-center mb-3">Text to QR Code</h3>
+        <p class="text-center text-muted mb-4">
+            Enter any text or URL below and download its QR code instantly.
+        </p>
+
+        <form class="w-100" method="POST" action="/">
+            <div class="mb-3">
+                <label for="data" class="form-label">Text or URL</label>
+                <textarea
+                    class="form-control"
+                    id="data"
+                    name="data"
+                    rows="4"
+                    placeholder="e.g., https://example.com or any text"
+                    maxlength="1000"
+                    required
+                ></textarea>
+                <div class="form-text text-muted">Max 1000 characters. Your input is processed in-memory and not stored.</div>
             </div>
-        </div>
-    </body>
 
-</html>
+            <button type="submit" class="btn btn-primary btn-lg w-100">
+                Generate QR Code
+            </button>
+        </form>
+
+        <div class="mt-3 small text-secondary">
+            Submitting will download a PNG file named <code>qrcode.png</code>.
+        </div>
+    </div>
+</div>
+
+{% endblock %}
